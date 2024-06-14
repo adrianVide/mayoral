@@ -1,7 +1,8 @@
 'use client'
-import { useState } from "react";
+import React, { useState } from "react";
 import Card from "./components/Card/Card";
 import useWindowWidth from "./hooks/useWindowWidth";
+import useProductFilter from "./hooks/useProductFilter"; // Import the custom hook
 import products from "./HARDCODED/products.json";
 
 export default function Home() {
@@ -9,8 +10,10 @@ export default function Home() {
   const [mobileColumns, setMobileColumns] = useState(1);
   const isDesktop = useWindowWidth();
 
-  const desktopColumnRanges = [4, 5, 6]; 
-  const mobileColumnRanges = [1, 2, 3];  
+  const desktopColumnRanges = [4, 5, 6]; // Columns for desktop: 4, 5, 6
+  const mobileColumnRanges = [1, 2, 3]; // Columns for mobile: 1, 2, 3
+
+  const { filter, handleFilterChange, applyFilter } = useProductFilter(products);
 
   const handleIncrease = () => {
     if (isDesktop) {
@@ -53,6 +56,13 @@ export default function Home() {
   return (
     <main className="p-4">
       <div className="flex justify-center space-x-4 mb-4">
+        <input
+          type="text"
+          value={filter}
+          onChange={(e) => handleFilterChange(e.target.value)}
+          placeholder="Filter by product name"
+          className="bg-gray-200 px-4 py-2 rounded-md"
+        />
         <button
           onClick={handleDecrease}
           className="bg-blue-500 text-white px-4 py-2 rounded"
@@ -70,7 +80,7 @@ export default function Home() {
         className="grid"
         style={{ gridTemplateColumns: getGridTemplateColumns() }}
       >
-        {products.map((product) => (
+        {applyFilter(products).map((product) => (
           <Card key={product.id} product={product}>
             <Card.Image />
             <Card.Name />
@@ -82,3 +92,4 @@ export default function Home() {
     </main>
   );
 }
+

@@ -1,13 +1,6 @@
 import Image from "next/image";
 import { PropsWithChildren, createContext, useContext } from "react";
-
-type Product = {
-  type: string;
-  name: string;
-  price: number;
-  discount_price: number;
-  image: string;
-};
+import { Product } from "../../types/product";
 
 type ProductContextType = {
   product: Product;
@@ -41,7 +34,9 @@ const Card = ({ product, children }: CardProps) => {
 const CardImage = () => {
   const { product } = useProduct();
   console.log(product);
-  return <Image src={product.image} alt={product.name} width={260} height={260}/>;
+  return (
+    <Image src={product.image} alt={product.name} width={260} height={260} />
+  );
 };
 
 const CardName = () => {
