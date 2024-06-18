@@ -1,4 +1,5 @@
 import Image from "next/image";
+import "./Card.css";
 import { PropsWithChildren, createContext, useContext } from "react";
 import { Product } from "../../types/product";
 
@@ -21,42 +22,66 @@ type CardProps = PropsWithChildren & {
 };
 
 const Card = ({ product, children }: CardProps) => {
-  console.log(product);
   return (
     <ProductContext.Provider value={{ product }}>
-      <div className="bg-gray-100 shadow-lg rounded-lg flex items-center justify-center flex-col">
-        {children}
-      </div>
+      <div className="card-container">{children}</div>
     </ProductContext.Provider>
   );
 };
 
 const CardImage = () => {
   const { product } = useProduct();
-  console.log(product);
   return (
-    <Image src={product.image} alt={product.name} width={260} height={260} />
+    <Image
+      priority
+      src={product.image}
+      alt={product.name}
+      width={260}
+      height={260}
+    />
   );
 };
 
 const CardName = () => {
   const { product } = useProduct();
-  return <h2 className="text-xl font-bold">{product.name}</h2>;
+  return <h2 className="card-name">{product.name}</h2>;
 };
 
 const CardPrice = () => {
   const { product } = useProduct();
-  return <p className="text-gray-500">{product.price}</p>;
+  return (
+    <p
+      className={`card-price ${
+        !!product.discount_price && "card-price__strike"
+      }`}
+    >
+      {product.price} €
+    </p>
+  );
 };
 
 const CardDiscountPrice = () => {
   const { product } = useProduct();
-  return <p className="text-gray-500">{product.discount_price}</p>;
+  if (!product.discount_price) return null;
+  const discountedDifference = Math.floor(
+    ((product.price - product.discount_price) / product.price) * 100
+  );
+  return (
+    <p className="card-discount">
+      {product.discount_price} € (-
+      {discountedDifference}%)
+    </p>
+  );
+};
+
+const CardButton = () => {
+  return <button className="card-button">AÑADIR</button>;
 };
 
 Card.Name = CardName;
 Card.Price = CardPrice;
 Card.Image = CardImage;
 Card.DiscountPrice = CardDiscountPrice;
+Card.Button = CardButton;
 
 export default Card;
