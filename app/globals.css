@@ -17,17 +17,62 @@
 }
 
 body {
+  padding: 1rem;
+  @media screen and (min-width: 1024px) {
+  padding: 3rem
+}
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  @media screen and (min-width: 1024px) {
+    flex-direction: row;
+    margin-bottom: none;
+  }
+}
+
+.input-search {
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid lightgray;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  @media screen and (min-width: 1024px) {
+    width: 50%;
+  }
+}
+
+.symbols-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.symbol {
+  font-size: 3rem;
+  color: lightgray;
+  @media screen and (min-width: 1024px) {
+    font-size: 5rem;
+  }
+}
+
+.symbol__active {
+  color: grey;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
 }
