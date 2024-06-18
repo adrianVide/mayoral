@@ -2,10 +2,10 @@ import { useState } from "react";
 import { Product } from "../types/product";
 
 const useProductFilter = () => {
-  const [filter, setFilter] = useState<string>(""); // Explicitly specify string type for filter
+  const [filter, setFilter] = useState<string>(""); 
 
   const handleFilterChange = (value: string) => {
-    setFilter(value.toLowerCase().trim()); // Update filter state with input value
+    setFilter(value.toLowerCase().trim()); 
   };
 
   const applyFilter = (products: Product[]): Product[] => {
