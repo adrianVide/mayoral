@@ -34,8 +34,8 @@ const CardImage = () => {
   return (
     <Image
       priority
-      src={product.image}
-      alt={product.name}
+      src={product?.image}
+      alt={product?.name}
       width={260}
       height={260}
     />
@@ -44,7 +44,7 @@ const CardImage = () => {
 
 const CardName = () => {
   const { product } = useProduct();
-  return <h2 className="card-name">{product.name}</h2>;
+  return <h2 className="card-name">{product?.name}</h2>;
 };
 
 const CardPrice = () => {
@@ -52,23 +52,23 @@ const CardPrice = () => {
   return (
     <p
       className={`card-price ${
-        !!product.discount_price && "card-price__strike"
+        !!product?.discount_price && "card-price__strike"
       }`}
     >
-      {product.price} €
+      {product?.price} €
     </p>
   );
 };
 
 const CardDiscountPrice = () => {
   const { product } = useProduct();
-  if (!product.discount_price) return null;
+  if (!product?.discount_price) return null;
   const discountedDifference = Math.floor(
-    ((product.price - product.discount_price) / product.price) * 100
+    ((product?.price - product?.discount_price) / product?.price) * 100
   );
   return (
     <p className="card-discount">
-      {product.discount_price} € (-
+      {product?.discount_price} € (-
       {discountedDifference}%)
     </p>
   );

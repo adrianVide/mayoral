@@ -10,12 +10,14 @@ const OrderByPrice: React.FC<OrderByPriceProps> = ({
   return (
     <div className="">
       <button
+        aria-role="button"
         onClick={() => onOrderChange("asc")}
         className={`symbol ${order === "asc" && "symbol__active"}`}
       >
         ˄
       </button>
       <button
+        aria-role="button"
         onClick={() => onOrderChange("desc")}
         className={`symbol ${order === "desc" && "symbol__active"}`}
       >
